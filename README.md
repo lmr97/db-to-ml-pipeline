@@ -5,7 +5,7 @@ This is a a demonstration of a data engineering pipeline. Starting with defining
 
 1. Change your working directory to the folder where you downloaded the repository.
 
-2. Run `clean_and_org.sh` to clean the data and format it into the expected tables
+2. Run `clean_and_prep.sh` to clean the data and format it into the expected tables
 
 3. Load the database into a Docker container by running `buildDockerDB.sh`
 
