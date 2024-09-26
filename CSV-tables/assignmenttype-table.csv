@@ -1,0 +1,5 @@
+AssignmentTypeID,AssignmentType
+H,"Homework"
+E,"Examination"
+Q,"Quiz"
+F,"Final Examination"
