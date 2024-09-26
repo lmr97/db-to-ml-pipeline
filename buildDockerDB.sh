@@ -28,8 +28,7 @@ fi
 # install Python Oracle library (locally, not in container)
 echo -e "Making sure required Python libraries are installed...\n"
 
-# pip install oracledb
-# pip install openai
+pip install oracledb
 
 # Get image and start up Docker container
 echo "Starting up Docker container for database..."
