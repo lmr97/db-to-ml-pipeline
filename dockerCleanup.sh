@@ -6,9 +6,3 @@
 
 docker container rm oracle-xe-db
 docker image rm container-registry.oracle.com/database/express
-
-# reverting change made for 24.04+ Ubuntu compatibility
-if [ -s ./unprivNamespaceSetting.txt ]; then
-    prevSetting=$(cut -c 1 ./unprivNamespaceSetting.txt)
-    sudo sysctl --write  kernel.apparmor_restrict_unprivileged_userns=$prevSetting
-fi
