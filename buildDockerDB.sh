@@ -16,15 +16,6 @@ if [[ $HERE != "short-answer-grading" ]]; then
     exit 1;
 fi
 
-# for Ubuntu Linux compatability, will revert upon cleanup script
-unprivNamespaceSetting=$(sysctl --values --binary kernel.apparmor_restrict_unprivileged_userns)
-
-if [ $unprivNamespaceSetting -ne 0 ]; then
-    echo $unprivNamespaceSetting > unprivNamespaceSetting.txt
-    sudo sysctl --write  kernel.apparmor_restrict_unprivileged_userns=0
-fi
-
-
 # install Python Oracle library (locally, not in container)
 echo -e "Making sure required Python libraries are installed...\n"
 
