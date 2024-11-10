@@ -10,7 +10,7 @@
 
 # check in repo directory (by folder name)
 HERE=${PWD##*/}         
-if [[ $HERE != "short-answer-grading" ]]; then
+if [[ $HERE != "db-to-ml-pipeline" ]]; then
     echo -e "\n\033[31mWORKING DIRECTORY ERROR \033[0m"
     echo -e "Please change working directory to folder where you downloaded the repository.\n"
     exit 1;
@@ -23,10 +23,10 @@ docker build -t oracle-db-img . \
 
 # Get image and start up Docker container
 echo "Starting up Docker container for database..."
-echo "(pulling image if necessary)"
 
 docker run -d \
     --name oracle-xe-db \
+    -e ORACLE_PASSWORD=password1234 \
     -p 1521:1521 \
     oracle-db-img \
 && echo "Container online!"
