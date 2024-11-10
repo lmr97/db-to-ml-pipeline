@@ -1,5 +1,4 @@
 [tool.poetry]
-name = "db-to-ml-pipeline"
 package-mode = false
 version = "0.1.0"
 description = "A demo pipeline for arbitrary machine learning model, utilizing Docker."
