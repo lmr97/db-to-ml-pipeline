@@ -39,7 +39,7 @@ fi
 # the script exits non-zero until DB is set up in container
 until docker exec oracle-xe-db bash ./DBSetupScripts/checkDBStatus.sh; do
     echo -e "\nStill waiting for database in container to come online. "
-    for sec in {19..0}; do
+    for sec in {5..1}; do
         echo -ne " Will check again in $sec seconds.\r"
         sleep 1
     done
