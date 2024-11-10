@@ -16,7 +16,7 @@ cd db-to-ml-pipeline
  
 5. Run `clean_and_prep.sh` to clean the data and format it into the expected tables.
 
-6. Run `buildDockerDB.sh` to build a Docker image for an Oracle server, run a container, and load the database.
+6. If on Linux, first start a superuser shell, otherwise just run `buildDockerDB.sh` to build a Docker image for an Oracle server, run a container, and load the database (root privileges are needed to run Docker commands on Linux). **This will probably take a while!**
 
 6. Now you can use the core of the project, `DataOrganizer.py`, which can be imported into a Python script to output model-ready Pandas dataframes.
 
