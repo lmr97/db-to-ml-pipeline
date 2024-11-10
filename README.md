@@ -13,7 +13,7 @@ This is a a demonstration of a data engineering pipeline. Starting with defining
 
 5. Load the database into a Docker container by running `buildDockerDB.sh`
 
-6. Now you can use the core of the project, `DataOrganizer.py`, which can be imported into a Python script to output model-ready data.
+6. Now you can use the core of the project, `DataOrganizer.py`, which can be imported into a Python script to output model-ready Pandas dataframes.
 
 The container cleanup has been automated with `dockerCleanup.sh`.
 
