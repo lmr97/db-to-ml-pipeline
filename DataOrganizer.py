@@ -16,7 +16,6 @@ class DataOrganizer:
     # Let the error propigate. if there's no connection, there should be no object. 
     self.connection = oracledb.connect(conn_string)
     self.cursor = self.connection.cursor() 
-    self.stand_ins = read_csv("./Clean_and_org/name-stand-ins.csv") 
     
   
 
@@ -25,7 +24,8 @@ class DataOrganizer:
   Returns a DataFrame, where all the text is a oracledb.LOB object.
   For conversion of text to `str` objects, use the `clean_essay()` method.
 
-  NOTE: This method returns `None` if the query is not valid.
+  NOTE: This method throws an exception if the query is not valid,
+  but also returns `None`.
   """
   def get_essays(self, assignment_ID: str) -> DataFrame:
     
@@ -54,15 +54,18 @@ class DataOrganizer:
     
     return essay_table
 
+
   
   """
-  Converts one CLOB from the database into a string, and cleans it,
-  adding pre-chosen values for anonymizing text like `STUDENT_NAME`
+  Converts one CLOB from the database into a string, and cleans it.
+  
+  When `replace_stand_ins=True` (default) this function adds 
+  pre-chosen values for anonymizing text like `STUDENT_NAME`
   (for replacement values, see `Clean_and_org/name-stand-ins.csv`).
   
   Use the pandas DataFrame method pandas' metho
   """
-  def clean_essay(self, essay_text: oracledb.LOB) -> str:
+  def clean_essay(self, essay_text: oracledb.LOB, replace_stand_ins=True) -> str:
 
     # text is received as a CLOB, extract data inside to string
     essay_text = essay_text.read()
@@ -71,14 +74,18 @@ class DataOrganizer:
     essay_text = essay_text.replace("\"\"\"", "\'")
     essay_text = essay_text.replace("\"\"",   "\'")     
 
-    # insert reasonable values for anonymizations
-    # idx is simply there to catch the first part of the tuple
-    for idx, replacement in self.stand_ins.iterrows():
-      essay_text = essay_text.replace(replacement["Variable"],
-                                      replacement["Stand-in_Value"]
-                                      )
+    if (replace_stand_ins):
+
+      # insert reasonable values for anonymizations, for demo
+      stand_ins = read_csv("./Clean_and_org/name-stand-ins.csv")
+
+      for idx, replacement in stand_ins.iterrows():
+        essay_text = essay_text.replace(replacement["Variable"],
+                                        replacement["Stand-in_Value"]
+                                        )
 
     return essay_text
+
 
   """
   Writes given grades to DB, by assignment and studentID.
