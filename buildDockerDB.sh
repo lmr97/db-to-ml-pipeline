@@ -16,22 +16,19 @@ if [[ $HERE != "short-answer-grading" ]]; then
     exit 1;
 fi
 
-# install Python Oracle library (locally, not in container)
-echo -e "Making sure required Python libraries are installed...\n"
+echo "Building Docker image..."
 
-pip install oracledb
+docker build -t oracle-db-img . \
+&& echo -e "\nImage built!"
 
 # Get image and start up Docker container
 echo "Starting up Docker container for database..."
 echo "(pulling image if necessary)"
 
 docker run -d \
-    --pull missing \
     --name oracle-xe-db \
-    -e ORACLE_PWD="password1234" \
     -p 1521:1521 \
-    -v "${PWD}/DBSetupScripts":"/home/oracle/DBSetupScripts" \
-    container-registry.oracle.com/database/express:latest \
+    oracle-db-img \
 && echo "Container online!"
 
 if [ $? -ne 0 ]; then
