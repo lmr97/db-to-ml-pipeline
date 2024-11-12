@@ -16,10 +16,12 @@ if [[ $HERE != "db-to-ml-pipeline" ]]; then
     exit 1;
 fi
 
-echo "Building Docker image..."
-
-docker build -t oracle-db-img . \
-&& echo -e "\nImage built!"
+# only build image if it hasn't been built yet
+if [[ $(docker image ls) != *"oracle-db-img"* ]]; then
+    echo "Building Docker image..."
+    docker build -t oracle-db-img . \
+    && echo -e "\nImage built!"
+fi
 
 # Get image and start up Docker container
 echo "Starting up Docker container for database..."
