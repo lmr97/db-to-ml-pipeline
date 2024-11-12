@@ -36,7 +36,7 @@ class DataOrganizer:
                         "Answer1", "Answer2", "Answer3", "Answer4", "Answer5", "Answer6", "Answer7"
                         ]
   
-    col_name_str = ','.join(essay_table_cols)
+    col_name_str = ', '.join(essay_table_cols)
     query = """
             SELECT %s
             FROM StudentAnswers sa
@@ -52,6 +52,10 @@ class DataOrganizer:
       print("Invalid assignmentID {assignmentID}, returning `None`")
       return None
     
+    # clean up essays, and convert to strings
+    answer_cols = ['ANSWER1', 'ANSWER2', 'ANSWER3', 'ANSWER4', 'ANSWER5', 'ANSWER6','ANSWER7']
+    essay_table.loc[:,answer_cols] = essay_table.loc[:,answer_cols].map(self.clean_essay)
+
     return essay_table
 
 
